@@ -1,11 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import styled, { css } from '@emotion/native'
+
+const Container = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+`
+
+const Description = styled.Text({
+  color: 'hotpink'
+})
+
+const Image = styled.Image`
+  padding: 40px;
+`
+
+const emotionLogo = 'https://cdn.rawgit.com/emotion-js/emotion/main/emotion.png'
 
 export default function App() {
   return (
-    <View>
-      <Text>Open up o start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Container
+        style={css`
+          border-radius: 10px;
+        `}
+      >
+        <Description style={{ fontSize: 45, fontWeight: 'bold' }}>
+          Emotion Primitives
+        </Description>
+        <Image
+          source={{
+            uri: emotionLogo,
+            height: 150,
+            width: 150
+          }}
+        />
+      </Container>
   );
 }
