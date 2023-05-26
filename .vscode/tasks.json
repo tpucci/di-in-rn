@@ -5,11 +5,20 @@
 			"type": "npm",
 			"script": "ios",
 			"problemMatcher": [],
-			"label": "yarn ios",
+			"label": "Start Expo on iOS",
 			"detail": "expo start --ios",
 			"group": {
 				"kind": "build",
-				"isDefault": true
+			}
+		},
+		{
+			"type": "Live Preview",
+			"workspacePath": "/Users/thomaspucci/Dev/score-board",
+			"options": {},
+			"problemMatcher": [],
+			"label": "Present Slides",
+			"group": {
+				"kind": "build",
 			}
 		}
 	]

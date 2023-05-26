@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Dependency Injection in React Native</title>
+
+	<link rel="stylesheet" href="slides/dist/reset.css">
+	<link rel="stylesheet" href="slides/dist/reveal.css">
+	<link rel="stylesheet" href="slides/dist/theme/black.css">
+
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+	<!-- Theme used for syntax highlighted code -->
+	<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section data-auto-animate>
+				<h2>Dependency Injection</h2>
+				<h2>in React Native</h2>
+				<p class="fragment"><img src="./slides/assets/thomasp.jpg"
+						class="w-28 h-28 rounded-full border-4 border-sky-300 inline" /><span class="ml-4">Thomas
+						Pucci</span>
+				</p>
+				<p class="fragment italic">Replacing part of your application should be as easy as replacing a piece
+					of a Lego
+					construction.</p>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Dependency Injection</h2>
+			</section>
+
+			<section data-auto-animate>
+				<h2 class="tracking-normal">Complexity</h2>
+				<h3> & Humans</h3>
+				<img src="slides/assets/complexity.svg" />
+			</section>
+
+			<section data-auto-animate>
+				<h3 class="tracking-wider">Managed</h3>
+				<h2 class="tracking-widest">Complexity</h2>
+				<img src="slides/assets/managed-complexity.svg" />
+			</section>
+		</div>
+	</div>
+
+	<script src="slides/dist/reveal.js"></script>
+	<script src="slides/plugin/notes/notes.js"></script>
+	<script src="slides/plugin/markdown/markdown.js"></script>
+	<script src="slides/plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
