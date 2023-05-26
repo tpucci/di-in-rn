@@ -5,7 +5,7 @@
 			"type": "npm",
 			"script": "ios",
 			"problemMatcher": [],
-			"label": "npm: ios",
+			"label": "yarn ios",
 			"detail": "expo start --ios",
 			"group": {
 				"kind": "build",
