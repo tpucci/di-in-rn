@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="slides/dist/reset.css">
 	<link rel="stylesheet" href="slides/dist/reveal.css">
 	<link rel="stylesheet" href="slides/dist/theme/black.css">
+	<link rel="stylesheet" href="slides/plugin/highlight/monokai.css">
 
 	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
@@ -49,6 +50,115 @@
 				<h2 class="tracking-widest">Complexity</h2>
 				<img src="slides/assets/managed-complexity.svg" />
 			</section>
+
+			<section data-auto-animate>
+				<h2>In practice</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface Something {}
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>In practice</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface Something {}
+
+					class MyClass {
+						_dependency: Something
+					}
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>In practice</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface Something {}
+
+					class MyClass {
+						_dependency: Something
+					}
+
+					class ConcreteThing implements Something {}
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>In practice</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface Something {}
+
+					class MyClass {
+						_dependency: Something
+					}
+
+					class ConcreteThing implements Something {}
+
+					container.register&lt;Something&gt;(ConcreteThing)
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Real life example</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface DataSource {}
+
+					class TodosRepository {
+						_datasource: DataSource
+					}
+
+					class RemoteDataSource implements DataSource {}
+
+					container.register&lt;DataSource&gt;(RemoteDataSource)
+				</code></pre>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Real life example</h2>
+				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					interface DataSource {}
+
+					class TodosRepository {
+						_datasource: DataSource
+					}
+
+					class RemoteDataSource implements DataSource {}
+					class InMemoryDataSource implements DataSource {}
+
+					// in production code
+					container.register&lt;DataSource&gt;(RemoteDataSource)
+
+					// in tests
+					container.register&lt;DataSource&gt;(InMemoryDataSource)
+
+				</code></pre>
+
+				<ul>
+					<li class="fragment">✅ Nothing is mocked</li>
+					<li class="fragment">✅ I can write another DataSource, and I'll break nothing</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Graph</h2>
+				<div class="mermaid flex justify-center">
+					<pre>
+					  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+					  classDiagram
+
+					  class DataSource
+					  &lt;&lt;interface&gt;&gt; DataSource
+
+					  class TodosRepository
+					  TodosRepository : -DataSource datasource
+
+
+					  TodosRepository --> DataSource
+					  DataSource <|.. InMemoryDataSource
+					  DataSource <|.. RemoteDataSource
+					</pre>
+				</div>
+			</section>
+
 		</div>
 	</div>
 
@@ -56,6 +166,8 @@
 	<script src="slides/plugin/notes/notes.js"></script>
 	<script src="slides/plugin/markdown/markdown.js"></script>
 	<script src="slides/plugin/highlight/highlight.js"></script>
+	<script src="slides/plugin/mermaid/mermaid.js"></script>
+
 	<script>
 		// More info about initialization & config:
 		// - https://revealjs.com/initialization/
@@ -64,7 +176,7 @@
 			hash: true,
 
 			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMermaid]
 		});
 	</script>
 </body>
