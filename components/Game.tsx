@@ -1,8 +1,6 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import styled from "@emotion/native";
 import { theme } from "../ui/theme";
-import { fade } from "../ui/colors";
-import { LinearGradient } from "expo-linear-gradient";
 
 interface Score {
   value: number;
@@ -16,35 +14,25 @@ type Props = {
 
 export const Game = ({ gameName, scores }: Props) => (
   <Container style={{ borderWidth: 1 }}>
-    <LinearGradient
-      colors={[fade(theme.secondary, 1), fade(theme.secondary, 5)]}
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: 16,
-      }}
-    >
-      <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row" }}>
+      <RowItem>
+        <P>Terraforming Mars</P>
+      </RowItem>
+      <RowItem>
         <RowItem>
-          <P>Terraforming Mars</P>
+          <RightAligned>
+            <P>Thomas</P>
+            <P>75</P>
+          </RightAligned>
         </RowItem>
         <RowItem>
-          <RowItem>
-            <RightAligned>
-              <P>Thomas</P>
-              <P>75</P>
-            </RightAligned>
-          </RowItem>
-          <RowItem>
-            <LeftAligned>
-              <P>46</P>
-              <P>Marion</P>
-            </LeftAligned>
-          </RowItem>
+          <LeftAligned>
+            <P>46</P>
+            <P>Marion</P>
+          </LeftAligned>
         </RowItem>
-      </View>
-    </LinearGradient>
+      </RowItem>
+    </View>
   </Container>
 );
 
@@ -57,8 +45,12 @@ const P = styled.Text`
 const Container = styled.View`
   height: 40px;
   border-radius: 32px;
-  border-color: ${fade(theme.secondary, 10)};
+  background-color: ${theme.black};
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
 `;
 
 const RowItem = styled.View`
