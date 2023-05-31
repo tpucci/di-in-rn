@@ -51,97 +51,57 @@
 				<img src="slides/assets/managed-complexity.svg" />
 			</section>
 
-			<section data-auto-animate>
+			<section data-transition="zoom-in slide-out">
 				<h2>In practice</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+				<pre class="fragment"><code class="hljs" data-trim>
 					interface Something {}
 				</code></pre>
-			</section>
-
-			<section data-auto-animate>
-				<h2>In practice</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
-					interface Something {}
-
+				<pre class="fragment"><code class="hljs" data-trim>
 					class MyClass {
 						_dependency: Something
 					}
 				</code></pre>
-			</section>
-
-			<section data-auto-animate>
-				<h2>In practice</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
-					interface Something {}
-
-					class MyClass {
-						_dependency: Something
-					}
-
+				<pre class="fragment"><code class="hljs" data-trim>
 					class ConcreteThing implements Something {}
 				</code></pre>
-			</section>
-
-			<section data-auto-animate>
-				<h2>In practice</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
-					interface Something {}
-
-					class MyClass {
-						_dependency: Something
-					}
-
-					class ConcreteThing implements Something {}
-
+				<pre class="fragment"><code class="hljs" data-trim>
 					container.register&lt;Something&gt;(ConcreteThing)
 				</code></pre>
 			</section>
 
-			<section data-auto-animate>
+			<section data-auto-animate="">
 				<h2>Real life example</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+				<pre class="fragment"><code class="hljs" data-trim>
 					interface DataSource {}
-
+				</code></pre>
+				<pre class="fragment"><code class="hljs" data-trim>
 					class TodosRepository {
 						_datasource: DataSource
 					}
-
+				</code></pre>
+				<pre class="fragment"><code class="hljs" data-trim>
 					class RemoteDataSource implements DataSource {}
-
+				</code></pre>
+				<pre class="fragment"><code class="hljs" data-trim>
 					container.register&lt;DataSource&gt;(RemoteDataSource)
 				</code></pre>
-			</section>
-
-			<section data-auto-animate>
-				<h2>Real life example</h2>
-				<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
-					interface DataSource {}
-
-					class TodosRepository {
-						_datasource: DataSource
-					}
-
-					class RemoteDataSource implements DataSource {}
+				<pre class="fragment"><code class="hljs" data-trim>
 					class InMemoryDataSource implements DataSource {}
-
-					// in production code
-					container.register&lt;DataSource&gt;(RemoteDataSource)
-
-					// in tests
-					container.register&lt;DataSource&gt;(InMemoryDataSource)
-
 				</code></pre>
-
-				<ul>
+				<pre class="fragment"><code class="hljs" data-trim>
+					container.register&lt;DataSource&gt;(InMemoryDataSource)
+				</code></pre>
+				<!-- <ul>
 					<li class="fragment">✅ Nothing is mocked</li>
 					<li class="fragment">✅ I can write another DataSource, and I'll break nothing</li>
-				</ul>
+				</ul> -->
 			</section>
 
 			<section>
 				<h2>Graph</h2>
-				<div class="mermaid flex justify-center">
-					<pre>
+				<div class="flex justify-center gap-20">
+					<div class="mermaid">
+						<pre>
 					  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
 					  classDiagram
 
@@ -156,6 +116,21 @@
 					  DataSource <|.. InMemoryDataSource
 					  DataSource <|.. RemoteDataSource
 					</pre>
+					</div>
+					<div class="mermaid">
+						<pre>
+					  %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+					  classDiagram
+
+					  class TodosRepository
+					  TodosRepository : -InMemoryDataSource inMemoryDatasource
+					  TodosRepository : -RemoteDataSource remoteDataSource
+
+
+					  TodosRepository --> InMemoryDataSource
+					  TodosRepository --> RemoteDataSource
+					</pre>
+					</div>
 				</div>
 			</section>
 
