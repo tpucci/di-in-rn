@@ -16,21 +16,25 @@ export const Game = ({ gameName, scores }: Props) => (
   <Container style={{ borderWidth: 1 }}>
     <View style={{ flexDirection: "row" }}>
       <RowItem>
-        <P>Terraforming Mars</P>
+        <P>{gameName}</P>
       </RowItem>
       <RowItem>
-        <RowItem>
-          <RightAligned>
-            <P>Thomas</P>
-            <P>75</P>
-          </RightAligned>
-        </RowItem>
-        <RowItem>
-          <LeftAligned>
-            <P>46</P>
-            <P>Marion</P>
-          </LeftAligned>
-        </RowItem>
+        {scores.length == 2 && (
+          <>
+            <RowItem>
+              <RightAligned>
+                <P>{scores[0].playerName}</P>
+                <P>{scores[0].value}</P>
+              </RightAligned>
+            </RowItem>
+            <RowItem>
+              <LeftAligned>
+                <P>{scores[1].value}</P>
+                <P>{scores[1].playerName}</P>
+              </LeftAligned>
+            </RowItem>
+          </>
+        )}
       </RowItem>
     </View>
   </Container>

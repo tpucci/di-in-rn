@@ -79,7 +79,19 @@ export function Home() {
           }
           renderItem={(lri) => (
             <GameWrapper>
-              <Game gameName={lri.item} scores={[]} />
+              <Game
+                gameName={lri.item}
+                scores={[
+                  {
+                    playerName: "Thomas",
+                    value: Math.ceil(Math.random() * 100),
+                  },
+                  {
+                    playerName: "Marion",
+                    value: Math.ceil(Math.random() * 100),
+                  },
+                ]}
+              />
             </GameWrapper>
           )}
           style={{ paddingTop: insets.top }}
