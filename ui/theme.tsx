@@ -1,3 +1,5 @@
+import { createContext } from "react";
+
 export const theme = {
   primary: "#A8FE39",
   secondary: "#EDFF08",
@@ -5,3 +7,5 @@ export const theme = {
   black: "#010101",
   white: "#FAFAFA",
 };
+
+export const ThemeContext = createContext(theme);

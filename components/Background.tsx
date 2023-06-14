@@ -1,13 +1,14 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { ReactNode } from "react";
-import { theme } from "../ui/theme";
+import { ReactNode, useContext } from "react";
 import { fade } from "../ui/colors";
+import { ThemeContext } from "../ui/theme";
 
 type Props = {
   children: ReactNode;
 };
 
 export const Background = ({ children }: Props) => {
+  const theme = useContext(ThemeContext);
   return (
     <LinearGradient
       colors={[theme.black, fade(theme.black, 50)]}
