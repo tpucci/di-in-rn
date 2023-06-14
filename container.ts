@@ -4,6 +4,7 @@ import { PlayersDataSource } from "./datasources/games/PlayersDataSource";
 import { InMemoryGameTitlesDataSource } from "./datasources/games/impl/InMemoryGameTitlesDataSource";
 import { InMemoryGamesDataSource } from "./datasources/games/impl/InMemoryGamesDataSource";
 import { InMermoryPlayersDataSource } from "./datasources/games/impl/InMermoryPlayersDataSource";
+import { demo } from "./demo";
 import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
 import { GamesRepo } from "./repositories/GamesRepo";
 import { PlayersRepo } from "./repositories/PlayersRepo";
@@ -15,6 +16,8 @@ const gameTitlesDataSource: GameTitlesDataSource =
 const gameTitlesRepo = new GameTitlesRepo(gameTitlesDataSource);
 const playersDataSource: PlayersDataSource = new InMermoryPlayersDataSource();
 const playersRepo = new PlayersRepo(playersDataSource);
+
+demo(gamesRepo, gameTitlesRepo, playersRepo);
 
 export const container = {
   gameDataSource,

@@ -15,6 +15,7 @@ import { Game } from "./components/Game";
 import { Player } from "./components/Player";
 import { TabBar } from "./components/TabBar";
 import { WinCount } from "./components/WinCount";
+import { container } from "./container";
 import { theme } from "./ui/theme";
 
 const Container = styled.View`
@@ -44,11 +45,14 @@ export function Home() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
+  const games = container.gamesRepo.getGames();
+  const players = container.playersRepo.getPlayers();
+
   return (
     <Background>
       <Container>
         <FlatList
-          data={["TM", "TM", "TM"]}
+          data={games}
           ListHeaderComponent={
             <>
               <View
@@ -69,8 +73,10 @@ export function Home() {
               <H2>Players</H2>
               <FlatList
                 horizontal
-                data={["Thomas", "Marion"]}
-                renderItem={(lri) => <Player name={lri.item} pictureUrl="" />}
+                data={players}
+                renderItem={(lri) => (
+                  <Player name={lri.item.name} pictureUrl="" />
+                )}
                 contentContainerStyle={{ paddingLeft: 24 }}
                 style={{ flexGrow: 0 }}
               />
@@ -80,17 +86,11 @@ export function Home() {
           renderItem={(lri) => (
             <GameWrapper>
               <Game
-                gameName={lri.item}
-                scores={[
-                  {
-                    playerName: "Thomas",
-                    value: Math.ceil(Math.random() * 100),
-                  },
-                  {
-                    playerName: "Marion",
-                    value: Math.ceil(Math.random() * 100),
-                  },
-                ]}
+                gameName={lri.item.title.title}
+                scores={lri.item.scores.map((s) => ({
+                  playerName: s.player.name,
+                  value: s.value,
+                }))}
               />
             </GameWrapper>
           )}

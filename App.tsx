@@ -1,3 +1,5 @@
+import "react-native-get-random-values";
+
 import { ThemeContext } from "@emotion/react";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
