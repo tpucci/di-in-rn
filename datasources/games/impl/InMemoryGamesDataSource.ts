@@ -1,7 +1,7 @@
 import { Game } from "../../../domain/Game";
 import { GameDataSource } from "../GamesDataSource";
 
-class InMemoryGamesDataSource implements GameDataSource {
+export class InMemoryGamesDataSource implements GameDataSource {
   private games: Record<Game["id"], Game> = {};
 
   update(game: Game): Game {

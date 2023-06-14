@@ -1,7 +1,7 @@
 import { GameDataSource } from "../datasources/games/GamesDataSource";
 import { Game } from "../domain/Game";
 
-class GamesRepo {
+export class GamesRepo {
   constructor(private dataSource: GameDataSource) {}
 
   public getGames(): Game[] {
