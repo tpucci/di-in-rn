@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
-import { theme } from "../ui/theme";
-import { fade } from "../ui/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { fade } from "../ui/colors";
+import { theme } from "../ui/theme";
 
 type Props = {
   pictureUrl: string;
@@ -27,7 +27,7 @@ export const Player = ({ pictureUrl, name }: Props) => (
 const PlayerName = styled.Text`
   font-family: "Kanit-Medium";
   color: ${theme.white};
-  font-size: 16em;
+  font-size: 16px;
 `;
 
 const Container = styled.View`

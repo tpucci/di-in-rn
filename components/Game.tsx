@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import styled from "@emotion/native";
+import { View } from "react-native";
 import { theme } from "../ui/theme";
 
 interface Score {
@@ -39,7 +39,7 @@ export const Game = ({ gameName, scores }: Props) => (
 const P = styled.Text`
   font-family: "Kanit-Medium";
   color: ${theme.white};
-  font-size: 16em;
+  font-size: 16px;
 `;
 
 const Container = styled.View`

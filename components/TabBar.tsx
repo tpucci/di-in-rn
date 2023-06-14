@@ -1,10 +1,14 @@
 import styled from "@emotion/native";
-import { theme } from "../ui/theme";
-import { fade } from "../ui/colors";
 import { Pressable, SafeAreaView } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { fade } from "../ui/colors";
+import { theme } from "../ui/theme";
 
-export const TabBar = () => (
+type Props = {
+  onPress: () => any;
+};
+
+export const TabBar = ({ onPress }: Props) => (
   <Container>
     <ButtonContainer>
       <Pressable
@@ -18,6 +22,7 @@ export const TabBar = () => (
           alignItems: "center",
           justifyContent: "center",
         })}
+        onPress={onPress}
       >
         <Svg
           width="32"
