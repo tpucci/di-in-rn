@@ -1,6 +1,9 @@
+import { injectable } from "inversify";
+import "reflect-metadata";
 import { Game } from "../../../domain/Game";
 import { GameDataSource } from "../GamesDataSource";
 
+@injectable()
 export class InMemoryGamesDataSource implements GameDataSource {
   private games: Record<Game["id"], Game> = {};
 

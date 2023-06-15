@@ -17,8 +17,6 @@ export default function App() {
 
   if (!fontsLoaded) return null;
 
-  console.log("hello world");
-
   return (
     <ThemeContext.Provider value={theme}>
       <GestureHandlerRootView style={{ flex: 1 }}>

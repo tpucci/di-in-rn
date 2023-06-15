@@ -1,7 +1,12 @@
+import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { GameTitlesDataSource } from "../datasources/games/GameTitlesDataSource";
+import TYPES from "../types";
 
+@injectable()
 export class GameTitlesRepo {
-  constructor(private dataSource: GameTitlesDataSource) {}
+  @inject(TYPES.GameTitlesDataSource)
+  private dataSource: GameTitlesDataSource;
 
   create(gameTitle) {
     return this.dataSource.create(gameTitle);

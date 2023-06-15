@@ -1,4 +1,16 @@
 {
-	"compilerOptions": {},
+	"compilerOptions": {
+		"lib": [
+			"ESNext",
+			"dom"
+		],
+		"types": [
+			"reflect-metadata"
+		],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
+	},
 	"extends": "expo/tsconfig.base"
 }

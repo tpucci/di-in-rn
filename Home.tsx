@@ -16,6 +16,9 @@ import { Player } from "./components/Player";
 import { TabBar } from "./components/TabBar";
 import { WinCount } from "./components/WinCount";
 import { container } from "./container";
+import { GamesRepo } from "./repositories/GamesRepo";
+import { PlayersRepo } from "./repositories/PlayersRepo";
+import TYPES from "./types";
 import { theme } from "./ui/theme";
 
 const Container = styled.View`
@@ -45,8 +48,10 @@ export function Home() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const games = container.gamesRepo.getGames();
-  const players = container.playersRepo.getPlayers();
+  // const games = container.gamesRepo.getGames();
+  // const players = container.playersRepo.getPlayers();
+  const games = container.get<GamesRepo>(TYPES.GamesRepo).getGames();
+  const players = container.get<PlayersRepo>(TYPES.PlayersRepo).getPlayers();
 
   return (
     <Background>
