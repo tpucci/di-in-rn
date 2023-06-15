@@ -1,5 +1,5 @@
-import { injectable } from "inversify";
 import "reflect-metadata";
+import { injectable } from "tsyringe";
 import { GameTitle } from "../../../domain/GameTitle";
 import { GameTitlesDataSource } from "../GameTitlesDataSource";
 
