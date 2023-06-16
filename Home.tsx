@@ -56,8 +56,14 @@ export function Home() {
   // const players = container.get<PlayersRepo>(TYPES.PlayersRepo).getPlayers();
 
   // Resolve dependencies using tsyringe
-  const games = container.resolve(GamesRepo).getGames();
-  const players = container.resolve(PlayersRepo).getPlayers();
+  // const games = container.resolve(GamesRepo).getGames();
+  // const players = container.resolve(PlayersRepo).getPlayers();
+
+  // Resolve dependencies using awilix
+  console.log("ok");
+  const games = container.resolve<GamesRepo>("gamesRepo").getGames();
+  const players = container.resolve<PlayersRepo>("playersRepo").getPlayers();
+  console.log("resolve ok");
 
   return (
     <Background>

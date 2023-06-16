@@ -1,14 +1,15 @@
-import "reflect-metadata";
-import { inject, injectable } from "tsyringe";
 import { GameTitlesDataSource } from "../datasources/games/GameTitlesDataSource";
-import TYPES from "../types";
 
-@injectable()
 export class GameTitlesRepo {
-  constructor(
-    @inject(TYPES.GameTitlesDataSource)
-    private dataSource: GameTitlesDataSource
-  ) {}
+  constructor({
+    gameTitlesDataSource,
+  }: {
+    gameTitlesDataSource: GameTitlesDataSource;
+  }) {
+    this.dataSource = gameTitlesDataSource;
+  }
+
+  private dataSource: GameTitlesDataSource;
 
   create(gameTitle) {
     return this.dataSource.create(gameTitle);

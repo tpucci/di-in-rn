@@ -1,14 +1,12 @@
-import "reflect-metadata";
-import { inject, injectable } from "tsyringe";
 import { GameDataSource } from "../datasources/games/GamesDataSource";
 import { Game } from "../domain/Game";
-import TYPES from "../types";
 
-@injectable()
 export class GamesRepo {
-  constructor(
-    @inject(TYPES.GamesDataSource) private dataSource: GameDataSource
-  ) {}
+  constructor({ gameDataSource }: { gameDataSource: GameDataSource }) {
+    this.dataSource = gameDataSource;
+  }
+
+  private dataSource: GameDataSource;
 
   public getGames(): Game[] {
     const games = this.dataSource.findAll();

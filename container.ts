@@ -1,6 +1,3 @@
-import { GameTitlesDataSource } from "./datasources/games/GameTitlesDataSource";
-import { GameDataSource } from "./datasources/games/GamesDataSource";
-import { PlayersDataSource } from "./datasources/games/PlayersDataSource";
 import { InMemoryGameTitlesDataSource } from "./datasources/games/impl/InMemoryGameTitlesDataSource";
 import { InMemoryGamesDataSource } from "./datasources/games/impl/InMemoryGamesDataSource";
 import { InMermoryPlayersDataSource } from "./datasources/games/impl/InMermoryPlayersDataSource";
@@ -8,7 +5,6 @@ import { demo } from "./demo";
 import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
 import { GamesRepo } from "./repositories/GamesRepo";
 import { PlayersRepo } from "./repositories/PlayersRepo";
-import TYPES from "./types";
 
 // Manual Dependency Injection
 
@@ -68,51 +64,76 @@ import TYPES from "./types";
 
 // tsyringe
 
-import { Lifecycle, container } from "tsyringe";
+// import { Lifecycle, container } from "tsyringe";
 
-container.register<GameDataSource>(
-  TYPES.GamesDataSource,
-  {
-    useClass: InMemoryGamesDataSource,
-  },
-  { lifecycle: Lifecycle.Singleton }
-);
-container.register<GameTitlesDataSource>(
-  TYPES.GameTitlesDataSource,
-  {
-    useClass: InMemoryGameTitlesDataSource,
-  },
-  { lifecycle: Lifecycle.Singleton }
-);
-container.register<PlayersDataSource>(
-  TYPES.PlayersDataSource,
-  {
-    useClass: InMermoryPlayersDataSource,
-  },
-  { lifecycle: Lifecycle.Singleton }
-);
-container.register<GamesRepo>(
-  TYPES.GamesRepo,
-  { useClass: GamesRepo },
-  { lifecycle: Lifecycle.Singleton }
-);
-container.register<GameTitlesRepo>(
-  TYPES.GameTitlesRepo,
-  {
-    useClass: GameTitlesRepo,
-  },
-  { lifecycle: Lifecycle.Singleton }
-);
-container.register<PlayersRepo>(
-  TYPES.PlayersRepo,
-  { useClass: PlayersRepo },
-  { lifecycle: Lifecycle.Singleton }
-);
+// container.register<GameDataSource>(
+//   TYPES.GamesDataSource,
+//   {
+//     useClass: InMemoryGamesDataSource,
+//   },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+// container.register<GameTitlesDataSource>(
+//   TYPES.GameTitlesDataSource,
+//   {
+//     useClass: InMemoryGameTitlesDataSource,
+//   },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+// container.register<PlayersDataSource>(
+//   TYPES.PlayersDataSource,
+//   {
+//     useClass: InMermoryPlayersDataSource,
+//   },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+// container.register<GamesRepo>(
+//   TYPES.GamesRepo,
+//   { useClass: GamesRepo },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+// container.register<GameTitlesRepo>(
+//   TYPES.GameTitlesRepo,
+//   {
+//     useClass: GameTitlesRepo,
+//   },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+// container.register<PlayersRepo>(
+//   TYPES.PlayersRepo,
+//   { useClass: PlayersRepo },
+//   { lifecycle: Lifecycle.Singleton }
+// );
+
+// demo(
+//   container.resolve(TYPES.GamesRepo),
+//   container.resolve(TYPES.GameTitlesRepo),
+//   container.resolve(TYPES.PlayersRepo)
+// );
+
+import { Lifetime, asClass, createContainer } from "awilix";
+
+const container = createContainer();
+
+container.register({
+  gameDataSource: asClass(InMemoryGamesDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
+  gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
+  playersDataSource: asClass(InMermoryPlayersDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
+});
 
 demo(
-  container.resolve(TYPES.GamesRepo),
-  container.resolve(TYPES.GameTitlesRepo),
-  container.resolve(TYPES.PlayersRepo)
+  container.resolve("gamesRepo"),
+  container.resolve("gameTitlesRepo"),
+  container.resolve("playersRepo")
 );
 
 export { container };
