@@ -1,9 +1,6 @@
-import "reflect-metadata";
-import { injectable } from "tsyringe";
 import { GameTitle } from "../../../domain/GameTitle";
 import { GameTitlesDataSource } from "../GameTitlesDataSource";
 
-@injectable()
 export class InMemoryGameTitlesDataSource implements GameTitlesDataSource {
   gameTitles = {};
 

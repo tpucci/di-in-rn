@@ -1,9 +1,6 @@
-import "reflect-metadata";
-import { injectable } from "tsyringe";
 import { Player } from "../../../domain/Player";
 import { PlayersDataSource } from "../PlayersDataSource";
 
-@injectable()
 export class InMermoryPlayersDataSource implements PlayersDataSource {
   players = {};
 
