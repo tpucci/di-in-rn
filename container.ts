@@ -115,20 +115,33 @@ import { Lifetime, asClass, createContainer } from "awilix";
 
 const container = createContainer();
 
-container.register({
-  gameDataSource: asClass(InMemoryGamesDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
-  gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
-  playersDataSource: asClass(InMermoryPlayersDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
-});
+const t0 = performance.now();
+for (let index = 0; index < 1000; index++) {
+  container.register({
+    gameDataSource: asClass(InMemoryGamesDataSource, {
+      lifetime: Lifetime.SINGLETON,
+    }),
+    gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
+    gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
+      lifetime: Lifetime.SINGLETON,
+    }),
+    gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
+    playersDataSource: asClass(InMermoryPlayersDataSource, {
+      lifetime: Lifetime.SINGLETON,
+    }),
+    playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
+  });
+}
+const t1 = performance.now();
+console.log("register:", Math.ceil(t1 - t0), "milliseconds");
+
+const t2 = performance.now();
+for (let index = 0; index < 1500; index++) {
+  container.resolve("gamesRepo");
+  container.resolve("gameTitlesDataSource");
+}
+const t3 = performance.now();
+console.log("resolve:", Math.ceil(t3 - t2), "milliseconds");
 
 demo(
   container.resolve("gamesRepo"),
