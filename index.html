@@ -286,6 +286,100 @@
 				</div>
 			</section>
 
+			<section data-auto-animate>
+				<h3>Technique 1: Feature flag</h3>
+				<pre data-id="code">
+					<code data-line-numbers="|5" class="language-tsx hljs" data-trim>
+const container = createContainer();
+
+container.register({
+  gameDataSource: asClass(
+	featureFlagEnabled ? ReduxGamesDataSource : InMemoryGamesDataSource,
+	{ lifetime: Lifetime.SINGLETON }
+  ),
+});
+					</code>
+				</pre>
+			</section>
+
+			<section data-auto-animate>
+				<h3>Technique 2: A/B Testing</h3>
+				<pre data-id="code">
+					<code data-line-numbers="|5" class="language-tsx hljs" data-trim>
+const container = createContainer();
+
+container.register({
+  gameDataSource: asClass(
+	AorB ? ReduxGamesDataSource : InMemoryGamesDataSource,
+	{ lifetime: Lifetime.SINGLETON }
+  ),
+});
+					</code>
+				</pre>
+			</section>
+
+			<section data-auto-animate>
+				<h3>Technique 3: Page Scoped Container</h3>
+				<pre data-id="code">
+					<code data-line-numbers class="language-tsx hljs" data-trim>
+const container = createContainer();
+
+container.register({
+  gameDataSource: asClass(
+	ReduxGamesDataSource,
+	{ lifetime: Lifetime.SINGLETON }
+  ),
+});
+
+const scope = container.createScope();
+scope.register({
+	gameDataSource: asValue(
+		InMemoryGamesDataSource,
+	),
+})
+					</code>
+				</pre>
+
+			</section>
+
+			<section data-auto-animate>
+				<pre class="fragment">
+					<code data-line-numbers class="language-tsx hljs" data-trim>
+						function HomeScreen() {
+							const container = useContainer(); // Root container
+
+							...
+						}
+					</code>
+				</pre>
+
+				<pre class="fragment">
+					<code data-line-numbers class="language-tsx hljs" data-trim>
+						function SomeScreenInWIP() {
+							const container = useContainer(); // Scoped container with overriden dependencies
+
+							...
+						}
+					</code>
+				</pre>
+
+
+				<pre class="fragment">
+					<code data-line-numbers="|6" class="language-tsx hljs" data-trim>
+						function App() {
+							return (
+							  &lt;NavigationContainer>
+								&lt;Stack.Navigator>
+								  &lt;Stack.Screen name="HomeScreen" component={HomeScreen} />
+								  &lt;Stack.Screen name="SomeScreenInWIP" component={withScopedContainer(SomeScreenInWIP)} />
+								&lt;/Stack.Navigator>
+							  &lt;/NavigationContainer>
+							);
+						  }
+					</code>
+				</pre>
+			</section>
+
 			<section data-transition="zoom-in">
 				<div class="grid grid-cols-4 gap-12">
 					<div
