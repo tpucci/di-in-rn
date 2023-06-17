@@ -1,5 +1,5 @@
 import { InMemoryGameTitlesDataSource } from "./datasources/games/impl/InMemoryGameTitlesDataSource";
-import { InMermoryPlayersDataSource } from "./datasources/games/impl/InMermoryPlayersDataSource";
+import { MobxPlayersDataSource } from "./datasources/games/impl/MobxPlayersDataSource";
 import { ReduxGamesDataSource } from "./datasources/games/impl/ReduxGamesDataSource";
 import { demo } from "./demo";
 import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
@@ -124,7 +124,7 @@ container.register({
     lifetime: Lifetime.SINGLETON,
   }),
   gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
-  playersDataSource: asClass(InMermoryPlayersDataSource, {
+  playersDataSource: asClass(MobxPlayersDataSource, {
     lifetime: Lifetime.SINGLETON,
   }),
   playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),

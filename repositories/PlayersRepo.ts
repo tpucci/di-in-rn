@@ -21,8 +21,10 @@ export class PlayersRepo {
     const games = this.gamesRepo.getGames();
     const winnedGames = games.filter((game) => {
       const scores = game.scores;
-      const playerScore = scores.find((score) => score.player === player);
-      const otherScores = scores.filter((score) => score.player !== player);
+      const playerScore = scores.find((score) => score.player.id === player.id);
+      const otherScores = scores.filter(
+        (score) => score.player.id !== player.id
+      );
       const otherScoresMax = Math.max(
         ...otherScores.map((score) => score.value)
       );
