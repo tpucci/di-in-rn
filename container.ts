@@ -1,6 +1,6 @@
 import { InMemoryGameTitlesDataSource } from "./datasources/games/impl/InMemoryGameTitlesDataSource";
-import { InMemoryGamesDataSource } from "./datasources/games/impl/InMemoryGamesDataSource";
 import { InMermoryPlayersDataSource } from "./datasources/games/impl/InMermoryPlayersDataSource";
+import { ReduxGamesDataSource } from "./datasources/games/impl/ReduxGamesDataSource";
 import { demo } from "./demo";
 import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
 import { GamesRepo } from "./repositories/GamesRepo";
@@ -116,7 +116,7 @@ import { Lifetime, asClass, createContainer } from "awilix";
 const container = createContainer();
 
 container.register({
-  gameDataSource: asClass(InMemoryGamesDataSource, {
+  gameDataSource: asClass(ReduxGamesDataSource, {
     lifetime: Lifetime.SINGLETON,
   }),
   gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
