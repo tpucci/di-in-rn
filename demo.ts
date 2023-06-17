@@ -12,7 +12,11 @@ export const demo = (
   playersRepo: PlayersRepo
 ) => {
   const gameTitle1 = gameTitle("Terraforming Mars");
+  const gameTitle2 = gameTitle("Catan");
+  const gameTitle3 = gameTitle("7 Wonders");
   gameTitlesRepo.create(gameTitle1);
+  gameTitlesRepo.create(gameTitle2);
+  gameTitlesRepo.create(gameTitle3);
 
   const player1 = player("Thomas");
   const player2 = player("Marion");
@@ -21,6 +25,6 @@ export const demo = (
 
   const game1 = game(gameTitle1, [score(player1, 54), score(player2, 80)]);
   gamesRepo.createGame(game1);
-  const game2 = game(gameTitle1, [score(player1, 78), score(player2, 66)]);
+  const game2 = game(gameTitle2, [score(player1, 12), score(player2, 7)]);
   gamesRepo.createGame(game2);
 };

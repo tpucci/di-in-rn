@@ -16,6 +16,8 @@ import { Player } from "./components/Player";
 import { TabBar } from "./components/TabBar";
 import { WinCount } from "./components/WinCount";
 import { container } from "./container";
+import { game } from "./domain/Game";
+import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
 import { GamesRepo } from "./repositories/GamesRepo";
 import { PlayersRepo } from "./repositories/PlayersRepo";
 import { theme } from "./ui/theme";
@@ -60,8 +62,10 @@ export function Home() {
   // const players = container.resolve(PlayersRepo).getPlayers();
 
   // Resolve dependencies using awilix
-  const games = container.resolve<GamesRepo>("gamesRepo").getGames();
-  const players = container.resolve<PlayersRepo>("playersRepo").getPlayers();
+  const games = container.resolve<GamesRepo>("gamesRepo").useGames();
+  const playersRepo = container.resolve<PlayersRepo>("playersRepo");
+  const players = playersRepo.getPlayers();
+  const winCount = playersRepo.getWinnedGames(players[0]);
 
   return (
     <Background>
@@ -78,7 +82,7 @@ export function Home() {
                   marginHorizontal: 32,
                 }}
               >
-                <WinCount value={3} />
+                <WinCount value={winCount} />
                 <Avatar
                   size={40}
                   pictureUrl="https://s.gravatar.com/avatar/ce72c1f1879c61795466d2b1a9c7e9b9?s=40"
@@ -110,9 +114,35 @@ export function Home() {
             </GameWrapper>
           )}
           style={{ paddingTop: insets.top }}
+          contentContainerStyle={{ paddingBottom: 256 + insets.bottom }}
         />
       </Container>
-      <TabBar onPress={() => bottomSheetRef.current.expand()} />
+      <TabBar
+        onPress={() => {
+          //bottomSheetRef.current.expand()
+
+          const gamesRepo = container.resolve<GamesRepo>("gamesRepo");
+          const gameTitlesRepo =
+            container.resolve<GameTitlesRepo>("gameTitlesRepo");
+          const gameTitle =
+            gameTitlesRepo.findAll()[
+              Math.floor(Math.random() * gameTitlesRepo.findAll().length)
+            ];
+          const player1 = container
+            .resolve<PlayersRepo>("playersRepo")
+            .getPlayers()[0];
+          const player2 = container
+            .resolve<PlayersRepo>("playersRepo")
+            .getPlayers()[1];
+
+          gamesRepo.createGame(
+            game(gameTitle, [
+              { player: player1, value: Math.ceil(Math.random() * 10) },
+              { player: player2, value: Math.ceil(Math.random() * 10) },
+            ])
+          );
+        }}
+      />
 
       <View
         style={{
