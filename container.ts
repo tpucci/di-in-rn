@@ -1,3 +1,6 @@
+import { GameTitlesDataSource } from "./datasources/games/GameTitlesDataSource";
+import { GameDataSource } from "./datasources/games/GamesDataSource";
+import { PlayersDataSource } from "./datasources/games/PlayersDataSource";
 import { InMemoryGameTitlesDataSource } from "./datasources/games/impl/InMemoryGameTitlesDataSource";
 import { InMemoryGamesDataSource } from "./datasources/games/impl/InMemoryGamesDataSource";
 import { InMermoryPlayersDataSource } from "./datasources/games/impl/InMermoryPlayersDataSource";
@@ -8,24 +11,24 @@ import { PlayersRepo } from "./repositories/PlayersRepo";
 
 // Manual Dependency Injection
 
-// const gameDataSource: GameDataSource = new InMemoryGamesDataSource();
-// const gamesRepo = new GamesRepo(gameDataSource);
-// const gameTitlesDataSource: GameTitlesDataSource =
-//   new InMemoryGameTitlesDataSource();
-// const gameTitlesRepo = new GameTitlesRepo(gameTitlesDataSource);
-// const playersDataSource: PlayersDataSource = new InMermoryPlayersDataSource();
-// const playersRepo = new PlayersRepo(playersDataSource);
+const gameDataSource: GameDataSource = new InMemoryGamesDataSource();
+const gamesRepo = new GamesRepo({ gameDataSource });
+const gameTitlesDataSource: GameTitlesDataSource =
+  new InMemoryGameTitlesDataSource();
+const gameTitlesRepo = new GameTitlesRepo({ gameTitlesDataSource });
+const playersDataSource: PlayersDataSource = new InMermoryPlayersDataSource();
+const playersRepo = new PlayersRepo({ playersDataSource, gamesRepo });
 
-// demo(gamesRepo, gameTitlesRepo, playersRepo);
+demo(gamesRepo, gameTitlesRepo, playersRepo);
 
-// export const container = {
-//   gameDataSource,
-//   gamesRepo,
-//   gameTitlesDataSource,
-//   gameTitlesRepo,
-//   playersDataSource,
-//   playersRepo,
-// };
+export const container = {
+  gameDataSource,
+  gamesRepo,
+  gameTitlesDataSource,
+  gameTitlesRepo,
+  playersDataSource,
+  playersRepo,
+};
 
 // Inversify
 
@@ -111,29 +114,29 @@ import { PlayersRepo } from "./repositories/PlayersRepo";
 //   container.resolve(TYPES.PlayersRepo)
 // );
 
-import { Lifetime, asClass, createContainer } from "awilix";
+// import { Lifetime, asClass, createContainer } from "awilix";
 
-const container = createContainer();
+// const container = createContainer();
 
-container.register({
-  gameDataSource: asClass(InMemoryGamesDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
-  gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
-  playersDataSource: asClass(InMermoryPlayersDataSource, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
-});
+// container.register({
+//   gameDataSource: asClass(InMemoryGamesDataSource, {
+//     lifetime: Lifetime.SINGLETON,
+//   }),
+//   gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
+//   gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
+//     lifetime: Lifetime.SINGLETON,
+//   }),
+//   gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
+//   playersDataSource: asClass(InMermoryPlayersDataSource, {
+//     lifetime: Lifetime.SINGLETON,
+//   }),
+//   playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
+// });
 
-demo(
-  container.resolve("gamesRepo"),
-  container.resolve("gameTitlesRepo"),
-  container.resolve("playersRepo")
-);
+// demo(
+//   container.resolve("gamesRepo"),
+//   container.resolve("gameTitlesRepo"),
+//   container.resolve("playersRepo")
+// );
 
-export { container };
+// export { container };

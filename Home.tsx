@@ -50,8 +50,9 @@ export function Home() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // Manually resolve dependencies
-  // const games = container.gamesRepo.getGames();
-  // const players = container.playersRepo.getPlayers();
+  const games = container.gamesRepo.getGames();
+  const players = container.playersRepo.getPlayers();
+  const winCount = container.playersRepo.getWinnedGames(players[0]);
 
   // Resolve dependencies using inversify
   // const games = container.get<GamesRepo>(TYPES.GamesRepo).getGames();
@@ -62,10 +63,10 @@ export function Home() {
   // const players = container.resolve(PlayersRepo).getPlayers();
 
   // Resolve dependencies using awilix
-  const games = container.resolve<GamesRepo>("gamesRepo").useGames();
-  const playersRepo = container.resolve<PlayersRepo>("playersRepo");
-  const players = playersRepo.getPlayers();
-  const winCount = playersRepo.getWinnedGames(players[0]);
+  // const games = container.resolve<GamesRepo>("gamesRepo").useGames();
+  // const playersRepo = container.resolve<PlayersRepo>("playersRepo");
+  // const players = playersRepo.getPlayers();
+  // const winCount = playersRepo.getWinnedGames(players[0]);
 
   return (
     <Background>
