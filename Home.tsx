@@ -17,9 +17,6 @@ import { TabBar } from "./components/TabBar";
 import { WinCount } from "./components/WinCount";
 import { container } from "./container";
 import { game } from "./domain/Game";
-import { GameTitlesRepo } from "./repositories/GameTitlesRepo";
-import { GamesRepo } from "./repositories/GamesRepo";
-import { PlayersRepo } from "./repositories/PlayersRepo";
 import { theme } from "./ui/theme";
 
 const Container = styled.View`
@@ -50,7 +47,7 @@ export function Home() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // Manually resolve dependencies
-  const games = container.gamesRepo.getGames();
+  const games = container.gamesRepo.useGames();
   const players = container.playersRepo.getPlayers();
   const winCount = container.playersRepo.getWinnedGames(players[0]);
 
@@ -122,19 +119,14 @@ export function Home() {
         onPress={() => {
           //bottomSheetRef.current.expand()
 
-          const gamesRepo = container.resolve<GamesRepo>("gamesRepo");
-          const gameTitlesRepo =
-            container.resolve<GameTitlesRepo>("gameTitlesRepo");
+          const gamesRepo = container.gamesRepo;
+          const gameTitlesRepo = container.gameTitlesRepo;
           const gameTitle =
             gameTitlesRepo.findAll()[
               Math.floor(Math.random() * gameTitlesRepo.findAll().length)
             ];
-          const player1 = container
-            .resolve<PlayersRepo>("playersRepo")
-            .getPlayers()[0];
-          const player2 = container
-            .resolve<PlayersRepo>("playersRepo")
-            .getPlayers()[1];
+          const player1 = container.playersRepo.getPlayers()[0];
+          const player2 = container.playersRepo.getPlayers()[1];
 
           gamesRepo.createGame(
             game(gameTitle, [
