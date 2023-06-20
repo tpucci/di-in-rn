@@ -11,24 +11,24 @@ import { PlayersRepo } from "./repositories/PlayersRepo";
 
 // Manual Dependency Injection
 
-const gameDataSource: GameDataSource = new InMemoryGamesDataSource();
-const gamesRepo = new GamesRepo({ gameDataSource });
-const gameTitlesDataSource: GameTitlesDataSource =
-  new InMemoryGameTitlesDataSource();
-const gameTitlesRepo = new GameTitlesRepo({ gameTitlesDataSource });
-const playersDataSource: PlayersDataSource = new InMermoryPlayersDataSource();
-const playersRepo = new PlayersRepo({ playersDataSource, gamesRepo });
+// const gameDataSource: GameDataSource = new InMemoryGamesDataSource();
+// const gamesRepo = new GamesRepo({ gameDataSource });
+// const gameTitlesDataSource: GameTitlesDataSource =
+//   new InMemoryGameTitlesDataSource();
+// const gameTitlesRepo = new GameTitlesRepo({ gameTitlesDataSource });
+// const playersDataSource: PlayersDataSource = new InMermoryPlayersDataSource();
+// const playersRepo = new PlayersRepo({ playersDataSource, gamesRepo });
 
-demo(gamesRepo, gameTitlesRepo, playersRepo);
+// demo(gamesRepo, gameTitlesRepo, playersRepo);
 
-export const container = {
-  gameDataSource,
-  gamesRepo,
-  gameTitlesDataSource,
-  gameTitlesRepo,
-  playersDataSource,
-  playersRepo,
-};
+// export const container = {
+//   gameDataSource,
+//   gamesRepo,
+//   gameTitlesDataSource,
+//   gameTitlesRepo,
+//   playersDataSource,
+//   playersRepo,
+// };
 
 // Inversify
 
@@ -114,29 +114,39 @@ export const container = {
 //   container.resolve(TYPES.PlayersRepo)
 // );
 
-// import { Lifetime, asClass, createContainer } from "awilix";
+import { Lifetime, asClass, createContainer } from "awilix";
 
-// const container = createContainer();
+const awilixContainer = createContainer();
 
-// container.register({
-//   gameDataSource: asClass(InMemoryGamesDataSource, {
-//     lifetime: Lifetime.SINGLETON,
-//   }),
-//   gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
-//   gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
-//     lifetime: Lifetime.SINGLETON,
-//   }),
-//   gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
-//   playersDataSource: asClass(InMermoryPlayersDataSource, {
-//     lifetime: Lifetime.SINGLETON,
-//   }),
-//   playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
-// });
+awilixContainer.register({
+  gameDataSource: asClass(InMemoryGamesDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  gamesRepo: asClass(GamesRepo, { lifetime: Lifetime.SINGLETON }),
+  gameTitlesDataSource: asClass(InMemoryGameTitlesDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  gameTitlesRepo: asClass(GameTitlesRepo, { lifetime: Lifetime.SINGLETON }),
+  playersDataSource: asClass(InMermoryPlayersDataSource, {
+    lifetime: Lifetime.SINGLETON,
+  }),
+  playersRepo: asClass(PlayersRepo, { lifetime: Lifetime.SINGLETON }),
+});
 
-// demo(
-//   container.resolve("gamesRepo"),
-//   container.resolve("gameTitlesRepo"),
-//   container.resolve("playersRepo")
-// );
+demo(
+  awilixContainer.resolve("gamesRepo"),
+  awilixContainer.resolve("gameTitlesRepo"),
+  awilixContainer.resolve("playersRepo")
+);
 
-// export { container };
+export const container = {
+  gameDataSource: awilixContainer.resolve<GameDataSource>("gameDataSource"),
+  gamesRepo: awilixContainer.resolve<GamesRepo>("gamesRepo"),
+  gameTitlesDataSource: awilixContainer.resolve<GameTitlesDataSource>(
+    "gameTitlesDataSource"
+  ),
+  gameTitlesRepo: awilixContainer.resolve<GameTitlesRepo>("gameTitlesRepo"),
+  playersDataSource:
+    awilixContainer.resolve<PlayersDataSource>("playersDataSource"),
+  playersRepo: awilixContainer.resolve<PlayersRepo>("playersRepo"),
+};
